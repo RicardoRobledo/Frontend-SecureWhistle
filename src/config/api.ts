@@ -2,18 +2,6 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const MAIN_DOMAINS_RAW = import.meta.env.VITE_MAIN_DOMAINS;
 export const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
-// 👇 DEBUG
-console.log("ENV DEBUG:");
-console.log("API_BASE_URL:", API_BASE_URL);
-console.log("MAIN_DOMAINS_RAW:", MAIN_DOMAINS_RAW);
-console.log("TURNSTILE_SITE_KEY:", TURNSTILE_SITE_KEY);
-
-// 👇 seguro (no crashea)
-export const MAIN_DOMAINS = (MAIN_DOMAINS_RAW || "")
-  .split(',')
-  .map((d: string) => d.trim())
-  .filter(Boolean);
-
 export const FEATURES = {
     'basic': ["Hasta 20 usuarios", "Hasta 10 denuncias por mes", "1 ciudad o sede", "Hasta 20 unidades de negocio o más",],
     'professional': ["Hasta 50 usuarios", "Hasta 30 denuncias por mes", "Hasta 10 ciudades o sedes", "Hasta 50 unidades de negocio o más",],
