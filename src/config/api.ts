@@ -1,6 +1,10 @@
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-export const MAIN_DOMAINS_RAW = import.meta.env.VITE_MAIN_DOMAINS;
+export const MAIN_DOMAINS = (import.meta.env.VITE_MAIN_DOMAINS || "")
+  .split(',')
+  .map((d: string) => d.trim())
+  .filter(Boolean);
 export const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
 
 export const FEATURES = {
     'basic': ["Hasta 20 usuarios", "Hasta 10 denuncias por mes", "1 ciudad o sede", "Hasta 20 unidades de negocio o más",],
