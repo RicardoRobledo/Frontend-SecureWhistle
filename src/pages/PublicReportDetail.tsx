@@ -251,11 +251,15 @@ const PublicReportDetail: React.FC = () => {
 
     const sanitizedCode = trackingCode.trim();
 
+    console.log('Tracking code entered:', sanitizedCode); // Debug
+
     if (!/^CMP-[a-zA-Z0-9]+$/.test(sanitizedCode)) {
         toast.error('Formato inválido.');
         setIsSearching(false);
         return;
     }
+
+    console.log('Fetching complaint with code:', sanitizedCode); // Debug
 
     try {
         const complaintRes = await axios.get(
@@ -279,6 +283,7 @@ const PublicReportDetail: React.FC = () => {
         setShowCaptcha(false);
 
     } catch (error) {
+        console.log('Error fetching complaint:', error); // Debug
         toast.error('No se encontró ninguna denuncia con ese código.');
     }
 
