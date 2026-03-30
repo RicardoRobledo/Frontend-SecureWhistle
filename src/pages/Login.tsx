@@ -38,7 +38,8 @@ const Login: React.FC = () => {
       setToken(access);
 
       const roleRes = await api.get(
-        `${API_BASE_URL}/${portal}/api/v1/users/user/user-role/`
+        `${API_BASE_URL}/${portal}/api/v1/users/user/user-role/`,
+        {headers: { 'ngrok-skip-browser-warning': 'true' }}
       );
 
       refreshAuth(roleRes.data.user_role);
