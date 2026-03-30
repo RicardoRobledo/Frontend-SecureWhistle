@@ -55,11 +55,9 @@ const PublicReportDetail: React.FC = () => {
       const [statesRes, unitsRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/${portal}/api/v1/catalogs/public-states/`, {
           signal: controller.signal,
-          headers: { 'ngrok-skip-browser-warning': 'true' },
         }),
         axios.get(`${API_BASE_URL}/${portal}/api/v1/catalogs/public-business-units/`, {
           signal: controller.signal,
-          headers: { 'ngrok-skip-browser-warning': 'true' },
         }),
       ]);
       setStates(statesRes.data);
@@ -139,7 +137,6 @@ const PublicReportDetail: React.FC = () => {
         `${API_BASE_URL}/${portal}/api/v1/complaints/public-complaint/${complaint?.id}/chat/${complaint?.chat?.id}/message-file/${fileId}/`,
         {
           responseType: "blob",
-          headers: { 'ngrok-skip-browser-warning': 'true' },
         }
       );
 
@@ -264,7 +261,6 @@ const PublicReportDetail: React.FC = () => {
     try {
         const complaintRes = await axios.get(
         `${API_BASE_URL}/${portal}/api/v1/complaints/public-complaint/${sanitizedCode}/`,
-        { headers: { 'ngrok-skip-browser-warning': 'true' }}
         );
 
         const complaintData = complaintRes.data;
@@ -273,7 +269,6 @@ const PublicReportDetail: React.FC = () => {
         if (complaintData.chat.id) {
             const chatHistory = await axios.get(
                 `${API_BASE_URL}/${portal}/api/v1/complaints/public-complaint/${sanitizedCode}/chat/${complaintData.chat.id}/history/`,
-                { headers: { 'ngrok-skip-browser-warning': 'true' }}
             );
 
             setChatMessages(chatHistory.data.messages);
@@ -299,7 +294,7 @@ const PublicReportDetail: React.FC = () => {
         return;
     }
 
-    if (!followUpText && followUpFiles.length === 0) {
+    if (!followUpText.trim()) {
         toast.error('El mensaje es obligatorio.');
         return;
     }
@@ -322,7 +317,6 @@ const PublicReportDetail: React.FC = () => {
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    'ngrok-skip-browser-warning': 'true'
                 },
             }
         );
@@ -476,7 +470,6 @@ const PublicReportDetail: React.FC = () => {
             {
                 headers: {
                 "Content-Type": "multipart/form-data",
-                'ngrok-skip-browser-warning': 'true'
                 },
             }
         );
@@ -855,7 +848,7 @@ const PublicReportDetail: React.FC = () => {
                                             <button 
                                                 disabled={
                                                     isSendingFollowUp ||
-                                                    (!followUpText.trim() && followUpFiles.length === 0)
+                                                    !followUpText.trim()
                                                 }
                                                 onClick={() => {
                                                     if (!showCaptcha) {
