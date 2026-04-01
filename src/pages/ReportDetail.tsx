@@ -779,7 +779,6 @@ const ReportDetail: React.FC = () => {
     };
 
     setIsSendingMessage(true);
-    setChatMessage('');
 
     try {
       const realMessage = await sendChatMessage(chatMessage);
@@ -795,6 +794,7 @@ const ReportDetail: React.FC = () => {
 
       toast.error("No se pudo enviar el mensaje.");
     }finally {
+      setChatMessage('');
       setIsSendingMessage(false);
     }
   };
@@ -1683,6 +1683,7 @@ const handleFiles = async (files: FileList | null) => {
                       value={chatMessage}
                       maxLength={1000}
                       onChange={(e) => setChatMessage(e.target.value)}
+                      disabled={isSendingMessage}
                       placeholder="Escriba un mensaje..."
                       rows={2}
                       className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm 
@@ -1692,7 +1693,7 @@ const handleFiles = async (files: FileList | null) => {
 
                     <button
                       onClick={handleSendChatToInformant}
-                      disabled={!chatMessage.trim()}
+                      disabled={!chatMessage.trim() || isSendingMessage}
                       className="bg-blue-600 text-white p-3.5 rounded-xl hover:bg-blue-700 
                                 active:scale-95 transition-all shadow-lg shadow-blue-200 
                                 disabled:opacity-50 disabled:shadow-none"
