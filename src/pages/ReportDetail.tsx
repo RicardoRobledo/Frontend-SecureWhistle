@@ -54,6 +54,7 @@ const ReportDetail: React.FC = () => {
   const [isLoadingComplaint, setIsLoadingComplaint] = useState(true);
   const [isTabLoading, setIsTabLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
 
   // Estados locales para edición
   const [forensicUsers, setForensicUsers] = useState<any[]>([]);
@@ -777,6 +778,9 @@ const ReportDetail: React.FC = () => {
       isTemp: true
     };
 
+    setIsSendingMessage(true);
+    setChatMessage('');
+
     try {
       const realMessage = await sendChatMessage(chatMessage);
 
@@ -790,9 +794,9 @@ const ReportDetail: React.FC = () => {
       );
 
       toast.error("No se pudo enviar el mensaje.");
+    }finally {
+      setIsSendingMessage(false);
     }
-
-    setChatMessage('');
   };
 
   const removeFile = (index: number) => {
