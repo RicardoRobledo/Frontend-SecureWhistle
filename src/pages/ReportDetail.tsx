@@ -658,7 +658,24 @@ const ReportDetail: React.FC = () => {
     return <File size={18} className="text-slate-400" />;
   };
 
-  if (!complaint) return null;
+  if (isLoadingComplaint || !complaint) return (
+    <div className="max-w-[1500px] mx-auto pb-20 animate-in fade-in duration-700">
+      <div className="h-[80vh] flex flex-col items-center justify-center gap-6">
+        <div className="relative w-20 h-20">
+          <div className="absolute inset-0 bg-blue-500/10 rounded-full animate-ping" />
+          <div className="relative w-20 h-20 bg-slate-900 rounded-full border border-blue-500/20 flex items-center justify-center">
+            <div className="w-8 h-8 border-3 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+          </div>
+        </div>
+        <div className="text-center">
+          <p className="text-sm font-bold text-slate-900 tracking-tight">Cargando expediente</p>
+          <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1 animate-pulse">
+            Obteniendo información...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 
   const handleSaveRiskScore = async () => {
 
