@@ -187,8 +187,8 @@ const ReportDetail: React.FC = () => {
   const beginForensicAnalysis = async () => {
     const url = `${portal}/api/v1/complaints/complaint/${sanitizedId}/forensic-analysis/`;
     try {
-      setIsAnalyzing(true);
       setIsProcessing(true);
+      toast.info('Espera un momento...');
       const res = await api.post(`${API_BASE_URL}/${url}`);
       if (res.data.status === 'COMPLETADO') {
         setDataProcessed(true);
@@ -213,9 +213,6 @@ const ReportDetail: React.FC = () => {
         setIsProcessing(false);
         toast.error('Error al procesar, es probable que sea un problema de formato o límite de páginas a procesar.');
       }
-    } finally {
-      setIsAnalyzing(false);
-      setIsProcessing(false);
     }
   };
 
